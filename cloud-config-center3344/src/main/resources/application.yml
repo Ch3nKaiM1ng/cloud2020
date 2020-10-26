@@ -1,0 +1,36 @@
+server:
+  port: 3344
+spring:
+  rabbitmq:
+    host: 47.107.47.13 #ip地址
+    port: 5672  #端口号
+    username: admin #账号
+    password: admin #密码
+    virtual-host: /ad-Vhost #vhost名称
+    listener:
+      simple:
+        acknowledge-mode: manual  #消息自动ACK确认：否
+  application:
+    name: cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Ch3nKaiM1ng/springcloud-config.git #Git上的文件目录
+          search-paths: springcloud-config  #目录名称
+      label: master #分支名称
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+
+#配置刷新策略
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
